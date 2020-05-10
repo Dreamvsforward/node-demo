@@ -57,11 +57,21 @@ const serverHandle = (req, res) => {
         //     return
         // }
         const userResult = handleUserRouter(req, res)
+        console.log('userResult', userResult)
         if (userResult) {
-            res.end(
-                JSON.stringify(userResult)
-            )
+            userResult.then(userData => {
+                console.log('userData--=', userData)
+                res.end(
+                    JSON.stringify(userData)
+                )
+            })
+            
         }
+        // if (userResult) {
+        //     res.end(
+        //         JSON.stringify(userResult)
+        //     )
+        // }
         // 未命中路由，返回 404
         res.writeHead(404, {"Content-type": "text/plain"})
         res.write("404 Not Found\n")

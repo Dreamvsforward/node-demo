@@ -4,15 +4,24 @@ const {
 } = require('../controller/user')
 const handleUserRouter = (req, res) => {
     const method = req.method // GET POST
-    const url = req.url
-    const path = url.split('?')[0]
-    if (method === 'POST' && path === '/api/user/login') {
+    console.log('path', req.path)
+    console.log('method', method)
+    if (method === 'POST' && req.path === '/api/user/login') {
         const {username, password} = req.body
         const result = loginCheck(username, password)
-        if (result) {
-            return new SuccessModel()
-        }
-        return new ErrorModel()
+        return result.then(data => {
+            if (data) {
+                return new SuccessModel()
+            } else {
+                console.log('到达返回结束')
+                return new ErrorModel('登录失败')
+            }
+        })
+        // const result = loginCheck(username, password)
+        // if (result) {
+        //     return new SuccessModel()
+        // }
+        // return new ErrorModel()
     }
 }
 module.exports = handleUserRouter

@@ -14,7 +14,6 @@ function exec (sql) {
                 return
             };
             resolve(results)
-            console.log('results', results)
         })
     })
     return promise
