@@ -1,13 +1,14 @@
 const {exec} = require('../db/mysql')
 const getList = (author, keyword) => {
     // 先返回假数据（格式是正确的）
-    const sql = 'select * from blogs where 1=1'
+    let sql = 'select * from blogs where 1=1 '
     if (author) {
-        sql += `and author='${author}'`
+        sql += `and author='${author}' `
     }
     if (keyword) {
-        sql += `and keyword='${keyword}'`
+        sql += `and title like '%${keyword}%' `
     }
+    console.log('查询的sql', sql)
     return exec(sql)
 }
 const getDetail = (id) => {

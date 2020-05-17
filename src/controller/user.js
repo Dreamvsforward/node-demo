@@ -1,11 +1,11 @@
 const {exec} = require('../db/mysql')
-const loginCheck = (username, passwork) => {
+const login = (username, passwork) => {
     const sql = `
         select username, realname from users where username='${username}' and password='${passwork}'
     `
     return exec(sql).then(rows => {
-        console.log('rows', rows)
-        return rows[0]
+        console.log('rows', rows[0])
+        return rows[0] || {}
     })
     // // 先使用假数据
     // if (username === 'xiaohua' && passwork === '123') {
@@ -14,5 +14,5 @@ const loginCheck = (username, passwork) => {
     // return false
 }
 module.exports = {
-    loginCheck
+    login
 }
